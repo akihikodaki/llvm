@@ -41,6 +41,9 @@ function(llvm_create_cross_target_internal target_name toolchain buildtype)
     if (buildtype)
       set(build_type_flags "-DCMAKE_BUILD_TYPE=${buildtype}")
     endif()
+    unset(ENV{CC})
+    unset(ENV{CXX})
+    unset(ENV{ASM})
     execute_process(COMMAND ${CMAKE_COMMAND} ${build_type_flags}
         -G "${CMAKE_GENERATOR}" -DLLVM_TARGETS_TO_BUILD=${LLVM_TARGETS_TO_BUILD}
         ${CROSS_TOOLCHAIN_FLAGS_${target_name}} ${CMAKE_SOURCE_DIR}
